@@ -1,0 +1,83 @@
+// Spacing scale
+:root {
+  --space-0: 0;
+  --space-1: 0.25rem;  // 4px
+  --space-2: 0.5rem;   // 8px
+  --space-3: 0.75rem;  // 12px
+  --space-4: 1rem;     // 16px
+  --space-5: 1.25rem;  // 20px
+  --space-6: 1.5rem;   // 24px
+  --space-8: 2rem;     // 32px
+  --space-10: 2.5rem;  // 40px
+  --space-12: 3rem;    // 48px
+  --space-16: 4rem;    // 64px
+  --space-20: 5rem;    // 80px
+  --space-24: 6rem;    // 96px
+  --space-32: 8rem;    // 128px
+  --space-40: 10rem;   // 160px
+  --space-48: 12rem;   // 192px
+  --space-56: 14rem;   // 224px
+  --space-64: 16rem;   // 256px
+}
+
+// Spacing values list for iteration
+$spacing-values: (0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 56, 64);
+
+// Single property spacing mixin
+@mixin generate-spacing-utilities($prefix, $property) {
+  @each $size in $spacing-values {
+    .#{$prefix}-#{$size} { #{$property}: var(--space-#{$size}) !important; }
+  }
+  .#{$prefix}-auto { #{$property}: auto !important; }
+}
+
+// Dual property spacing mixin (for mx, my, px, py)
+@mixin generate-dual-spacing-utilities($prefix, $property1, $property2) {
+  @each $size in $spacing-values {
+    .#{$prefix}-#{$size} {
+      #{$property1}: var(--space-#{$size}) !important;
+      #{$property2}: var(--space-#{$size}) !important;
+    }
+  }
+  .#{$prefix}-auto {
+    #{$property1}: auto !important;
+    #{$property2}: auto !important;
+  }
+}
+
+// Generate margin utilities
+@include generate-spacing-utilities('m', 'margin');
+@include generate-spacing-utilities('mt', 'margin-top');
+@include generate-spacing-utilities('mr', 'margin-right');
+@include generate-spacing-utilities('mb', 'margin-bottom');
+@include generate-spacing-utilities('ml', 'margin-left');
+@include generate-dual-spacing-utilities('mx', 'margin-left', 'margin-right');
+@include generate-dual-spacing-utilities('my', 'margin-top', 'margin-bottom');
+
+// Generate padding utilities
+@include generate-spacing-utilities('p', 'padding');
+@include generate-spacing-utilities('pt', 'padding-top');
+@include generate-spacing-utilities('pr', 'padding-right');
+@include generate-spacing-utilities('pb', 'padding-bottom');
+@include generate-spacing-utilities('pl', 'padding-left');
+@include generate-dual-spacing-utilities('px', 'padding-left', 'padding-right');
+@include generate-dual-spacing-utilities('py', 'padding-top', 'padding-bottom');
+
+// Negative margins
+.-m-1 { margin: calc(var(--space-1) * -1) !important; }
+.-m-2 { margin: calc(var(--space-2) * -1) !important; }
+.-m-3 { margin: calc(var(--space-3) * -1) !important; }
+.-m-4 { margin: calc(var(--space-4) * -1) !important; }
+
+// Space between elements
+.space-x-1 > * + * { margin-left: var(--space-1) !important; }
+.space-x-2 > * + * { margin-left: var(--space-2) !important; }
+.space-x-3 > * + * { margin-left: var(--space-3) !important; }
+.space-x-4 > * + * { margin-left: var(--space-4) !important; }
+.space-x-5 > * + * { margin-left: var(--space-5) !important; }
+
+.space-y-1 > * + * { margin-top: var(--space-1) !important; }
+.space-y-2 > * + * { margin-top: var(--space-2) !important; }
+.space-y-3 > * + * { margin-top: var(--space-3) !important; }
+.space-y-4 > * + * { margin-top: var(--space-4) !important; }
+.space-y-5 > * + * { margin-top: var(--space-5) !important; }

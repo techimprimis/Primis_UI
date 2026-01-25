@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TechImprimis</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f9fc" id="theme-color">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    // Set theme before Angular loads to prevent flash of incorrect theme
+    (function() {
+      // 1. Check for saved theme preference
+      const savedTheme = localStorage.getItem('theme-preference');
+
+      // 2. Check for system preference if no saved preference
+      if (!savedTheme) {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDark) {
+          document.documentElement.classList.add('dark');
+          document.getElementById('theme-color').setAttribute('content', '#0f172a');
+        }
+      } else if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.getElementById('theme-color').setAttribute('content', '#0f172a');
+      }
+    })();
+  </script>
+  <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+  <app-root></app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+</body>
+</html>
