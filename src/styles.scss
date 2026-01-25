@@ -309,3 +309,33 @@ $spacing-scale: (
 .fade-in {
   animation: fadeIn var(--transition-normal, 0.25s ease) ease-in;
 }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+  /* We can actually remove 'overflow: hidden' globally now */
+  overflow-y: auto;
+}
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Make sure the shell takes full height */
+}
+
+.topbar {
+  /* You need styles here to define the header height/color etc. */
+  height: 60px; /* Example height */
+  /* ... other header styles ... */
+}
+
+.panel {
+  /* This section takes up the remaining space using flex-grow */
+  flex-grow: 1; 
+  padding: 20px;
+  /* Add centering properties here so all child routes/components center */
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+} 
