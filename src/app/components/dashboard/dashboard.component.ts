@@ -18,9 +18,4 @@ export class DashboardComponent {
   private authService = inject(MockAuthService);
 
   userName = localStorage.getItem('auth_name') || 'User';
-
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/auth/login']);
-  }
 }

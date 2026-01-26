@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 import { ThemeService } from './core/services/theme.service';
+import { MockAuthService } from './core/services/mock-auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,21 @@ import { ThemeService } from './core/services/theme.service';
     <header class="header">
       <div class="container">
         <h1>TechImprimis</h1>
-        <button class="theme-toggle" (click)="theme.toggleTheme()">
-          {{ theme.isDarkMode() ? '☀️' : '🌙' }}
-        </button>
+
+        <div class="header-actions">
+          <button class="theme-toggle" (click)="theme.toggleTheme()">
+            {{ theme.isDarkMode() ? '☀️' : '🌙' }}
+          </button>
+
+           <!-- Logout button, only visible if logged in -->
+          @if (authService.isLoggedIn()) {
+          <button
+            class="logout-btn"
+            (click)="logout()">
+            Logout
+          </button>
+        }
+        </div>
       </div>
     </header>
 
@@ -39,6 +52,12 @@ import { ThemeService } from './core/services/theme.service';
       }
     }
 
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
     .theme-toggle {
       background: none;
       border: none;
@@ -58,6 +77,19 @@ import { ThemeService } from './core/services/theme.service';
       }
     }
 
+    .logout-btn {
+      padding: 0.5rem 1rem;
+      background-color: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #dc2626;
+      }
+    }
+
     .main-content {
       max-width: 1200px;
       margin: 0 auto;
@@ -67,4 +99,11 @@ import { ThemeService } from './core/services/theme.service';
 })
 export class App {
   protected theme = inject(ThemeService);
+  protected authService = inject(MockAuthService);
+  private router = inject(Router);
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
+  }
 }

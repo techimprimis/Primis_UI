@@ -19,11 +19,6 @@ export class AdminComponent {
 
   userName = localStorage.getItem('auth_name') || 'Admin';
 
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/auth/login']);
-  }
-
   // Mock list of users
   users = [
     { name: 'Admin User', email: 'admin@example.com', role: 'admin' },
