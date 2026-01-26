@@ -1,0 +1,67 @@
+.admin-page {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.admin-card {
+  width: 100%;
+  max-width: 700px;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  background-color: var(--card-bg, white);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  border: 1px solid #e2e8f0;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+th {
+  background-color: #f3f4f6;
+}
+
+button {
+  display: block;
+  margin: 1.5rem auto 0 auto;
+  padding: 0.75rem 1.5rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+:host-context(.dark) .admin-card {
+  --card-bg: #1e293b;
+  color: #f8fafc;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+:host-context(.dark) table th {
+  background-color: #334155;
+}
+
+:host-context(.dark) table, 
+:host-context(.dark) th, 
+:host-context(.dark) td {
+  border-color: #475569;
+}
+
+:host-context(.dark) button {
+  background-color: #2563eb;
+}

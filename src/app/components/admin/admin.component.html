@@ -1,0 +1,25 @@
+<div class="admin-page" [ngClass]="themeService.currentTheme">
+  <div class="admin-card">
+    <h2>Welcome, {{ userName }} (Admin)</h2>
+    <p>This is your admin panel.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of users">
+          <td>{{ u.name }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.role }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button (click)="logout()">Logout</button>
+  </div>
+</div>

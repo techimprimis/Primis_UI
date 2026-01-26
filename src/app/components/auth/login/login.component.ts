@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ThemeService } from '../../../core/services/theme.service';
 import { Router } from '@angular/router';
+import { MockAuthService } from '../../../core/services/mock-auth.service';
 
 declare global {
   interface Window {
@@ -26,7 +27,7 @@ export class LoginComponent {
 
   authMode: 'login' | 'signup' = 'login';
 
-  constructor(private router: Router) {
+  constructor(private router: Router,private authService: MockAuthService) {
     window.handleGoogleLogin = this.handleGoogleLogin.bind(this);
   }
 
@@ -83,12 +84,26 @@ export class LoginComponent {
 
     if (this.authMode === 'login') {
       console.log('Login Attempt:', formValue);
+      this.authService.login(formValue.email, formValue.password).subscribe({
+        next: (res) => {
+          console.log('Login Success:', res);
+          this.navigateAfterLogin(res.role);
+        },
+        error: (err) => alert(err.message)
+      });
     } else {
       console.log('Signup Attempt:', formValue);
+      this.authService.signup(formValue.fullName, formValue.email, formValue.password).subscribe({
+        next: (res) => {
+          console.log('Signup Success:', res);
+          this.navigateAfterLogin(res.role);
+        },
+        error: (err) => alert(err.message)
+      });
     }
-
-    this.router.navigate(['/dashboard']);
   }
+
+  // Reusable functions/methods
 
   ngAfterViewInit() {
   // Initialize the Google Identity Services SDK
@@ -109,4 +124,10 @@ export class LoginComponent {
       }
     );
   }
+
+  navigateAfterLogin(role: 'user' | 'admin') {
+    if (role === 'admin') this.router.navigate(['/admin']);
+    else this.router.navigate(['/dashboard']);
+  }
+
 }
