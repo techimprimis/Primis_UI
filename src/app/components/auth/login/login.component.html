@@ -1,16 +1,30 @@
 <div class="login-page" [ngClass]="themeService.currentTheme">
   <div class="login-card">
-    <h2>ImPrimisis Login</h2>
+    <h2>
+      {{ authMode === 'login' ? 'ImPrimisis Login' : 'Create Account' }}
+    </h2>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      @if (authMode === 'signup') {
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input
+            id="fullName"
+            type="text"
+            formControlName="fullName"
+            placeholder="Enter your full name" />
+        </div>
+      }
+
       <div class="form-group">
         <label for="email">Email</label>
-        <input 
-          id="email" 
-          type="email" 
-          formControlName="email" 
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
           placeholder="Enter your email" />
-        
+
         @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
           <small class="error-text">Please enter a valid email address.</small>
         }
@@ -18,40 +32,63 @@
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input 
-          id="password" 
-          type="password" 
-          formControlName="password" 
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
           placeholder="Enter your password" />
-        
-        @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
-          <small class="error-text">Password must be at least 6 characters.</small>
-        }
       </div>
 
+      @if (authMode === 'signup') {
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            id="confirmPassword"
+            type="password"
+            formControlName="confirmPassword"
+            placeholder="Confirm your password" />
+
+          @if (loginForm.errors?.['passwordMismatch']) {
+            <small class="error-text">Passwords do not match.</small>
+          }
+        </div>
+      }
+
       <div class="actions">
-        <button type="submit" [disabled]="loginForm.invalid">Sign In</button>
+        <button type="submit" [disabled]="loginForm.invalid">
+          {{ authMode === 'login' ? 'Sign In' : 'Sign Up' }}
+        </button>
+      </div>
+
+      <div class="toggle-text">
+        @if (authMode === 'login') {
+          <span>
+            Don’t have an account?
+            <a (click)="toggleAuthMode()">Sign up</a>
+          </span>
+        } @else {
+          <span>
+            Already have an account?
+            <a (click)="toggleAuthMode()">Log in</a>
+          </span>
+        }
       </div>
 
       <div class="divider">OR</div>
 
-    <div id="g_id_onload"
-         data-client_id="136656645529-7n1go9dbsuq46omo0n3gjfsda3cckdq8.apps.googleusercontent.com" 
-         data-context="signin"
-         data-ux_mode="popup"
-         data-callback="handleGoogleLogin"
-         data-auto_prompt="false">
-    </div>
+      <!-- Google Sign-In -->
+      <div
+        id="g_id_onload"
+        data-client_id="136656645529-7n1go9dbsuq46omo0n3gjfsda3cckdq8.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="popup"
+        data-callback="handleGoogleLogin"
+        data-auto_prompt="false">
+      </div>
 
-    <div class="g_id_signin"
-         data-type="standard"
-         data-shape="rectangular"
-         data-theme="outline"
-         data-text="signin_with"
-         data-size="large"
-         data-logo_alignment="left">
-    </div>
-
+      <div
+        class="g_id_signin">
+      </div>
     </form>
   </div>
 </div>

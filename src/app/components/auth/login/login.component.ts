@@ -2,12 +2,15 @@ import { Component, inject, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ThemeService } from '../../../core/services/theme.service';
+import { Router } from '@angular/router';
 
 declare global {
   interface Window {
     handleGoogleLogin: (response: any) => void;
   }
 }
+
+declare const google: any;
 
 @Component({
   selector: 'app-login',
@@ -16,40 +19,94 @@ declare global {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-
 export class LoginComponent {
   private fb = inject(FormBuilder);
-  public themeService = inject(ThemeService); // Injecting your original service
+  public themeService = inject(ThemeService);
   private zone = inject(NgZone);
 
-  constructor() {
-    // Assign the global callback function to a method within our Angular Zone
+  authMode: 'login' | 'signup' = 'login';
+
+  constructor(private router: Router) {
     window.handleGoogleLogin = this.handleGoogleLogin.bind(this);
   }
 
   handleGoogleLogin(response: any) {
-    // Wrap this in NgZone.run to ensure Angular detects changes properly
     this.zone.run(() => {
-      console.log("Google ID Token:", response.credential);
-      // You must send this JWT credential to your backend server for verification
-      alert("Successfully received Google credential! Check the console.");
+      console.log('Google ID Token:', response.credential);
+      alert('Google authentication successful!');
+      this.router.navigate(['/dashboard']);
     });
   }
 
-  // Initialize the form group
-  loginForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]]
-  });
+  loginForm: FormGroup = this.fb.group(
+    {
+      fullName: [''],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['']
+    },
+    { validators: this.passwordMatchValidator }
+  );
 
-  onLogin() {
-    // Correct usage of .valid property
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      
-      console.log('Login Attempt:', { email, password });
-      
-      // Add your authentication API call here
+  passwordMatchValidator(form: FormGroup) {
+    const password = form.get('password')?.value;
+    const confirm = form.get('confirmPassword')?.value;
+
+    if (!confirm) return null;
+    return password === confirm ? null : { passwordMismatch: true };
+  }
+
+  toggleAuthMode() {
+    this.authMode = this.authMode === 'login' ? 'signup' : 'login';
+
+     this.renderGoogleButton();
+
+    if (this.authMode === 'login') {
+      this.loginForm.get('fullName')?.clearValidators();
+      this.loginForm.get('confirmPassword')?.clearValidators();
+    } else {
+      this.loginForm.get('fullName')?.setValidators([Validators.required]);
+      this.loginForm.get('confirmPassword')?.setValidators([Validators.required]);
     }
+
+    this.loginForm.get('fullName')?.updateValueAndValidity();
+    this.loginForm.get('confirmPassword')?.updateValueAndValidity();
+  }
+
+  onSubmit() {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
+
+    const formValue = this.loginForm.value;
+
+    if (this.authMode === 'login') {
+      console.log('Login Attempt:', formValue);
+    } else {
+      console.log('Signup Attempt:', formValue);
+    }
+
+    this.router.navigate(['/dashboard']);
+  }
+
+  ngAfterViewInit() {
+  // Initialize the Google Identity Services SDK
+  google.accounts.id.initialize({
+      client_id: 'YOUR_CLIENT_ID', // replace with your actual client ID
+      callback: this.handleGoogleLogin.bind(this)
+    });
+    this.renderGoogleButton();
+  }
+
+  renderGoogleButton() {
+    google.accounts.id.renderButton(
+      document.querySelector('.g_id_signin') as HTMLElement,
+      {
+        theme: 'outline',
+        size: 'large',
+        text: this.authMode === 'login' ? 'login_with' : 'signup_with',
+      }
+    );
   }
 }
