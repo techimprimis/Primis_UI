@@ -9,6 +9,7 @@ type Theme = 'light' | 'dark';
 export class ThemeService {
   private readonly document = inject(DOCUMENT);
   private readonly THEME_KEY = 'theme-preference';
+  private readonly DARK_CLASS = 'ion-palette-dark'; // Ionic's standard dark palette class
   private readonly DARK_THEME: Theme = 'dark';
   private readonly LIGHT_THEME: Theme = 'light';
 
@@ -17,11 +18,9 @@ export class ThemeService {
   }
 
   private initializeTheme(): void {
-    // Get saved theme preference or use system preference
     const savedTheme = localStorage.getItem(this.THEME_KEY) as Theme | null;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    // Set initial theme
     const initialTheme = savedTheme || (prefersDark ? this.DARK_THEME : this.LIGHT_THEME);
     this.setTheme(initialTheme);
 
@@ -34,7 +33,7 @@ export class ThemeService {
   }
 
   get currentTheme(): Theme {
-    return this.document.documentElement.classList.contains(this.DARK_THEME)
+    return this.document.documentElement.classList.contains(this.DARK_CLASS)
       ? this.DARK_THEME
       : this.LIGHT_THEME;
   }
@@ -47,16 +46,16 @@ export class ThemeService {
     const html = this.document.documentElement;
     const themeColorMeta = this.document.querySelector('meta[name="theme-color"]');
 
-    // Update class on html element
+    // Toggle the Ionic dark palette class on the html element
     if (theme === this.DARK_THEME) {
-      html.classList.add(this.DARK_THEME);
+      html.classList.add(this.DARK_CLASS);
       if (themeColorMeta) {
-        themeColorMeta.setAttribute('content', '#0f172a'); // Dark theme color
+        themeColorMeta.setAttribute('content', '#121212');
       }
     } else {
-      html.classList.remove(this.DARK_THEME);
+      html.classList.remove(this.DARK_CLASS);
       if (themeColorMeta) {
-        themeColorMeta.setAttribute('content', '#f7f9fc'); // Light theme color
+        themeColorMeta.setAttribute('content', '#ffffff');
       }
     }
 

@@ -1,0 +1,31 @@
+ion-menu {
+  --width: 280px;
+}
+
+ion-item {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  cursor: pointer;
+
+  &.selected {
+    --background: var(--ion-color-primary-tint);
+    --color: var(--ion-color-primary);
+
+    ion-icon {
+      color: var(--ion-color-primary);
+    }
+  }
+
+  &:hover:not(.selected) {
+    --background: var(--ion-color-light);
+  }
+}
+
+ion-icon {
+  font-size: 1.25rem;
+  margin-right: 12px;
+}
+
+ion-label {
+  font-weight: 500;
+}

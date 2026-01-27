@@ -1,0 +1,202 @@
+// Login page uses Ionic's default theming - no custom background overrides
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  padding: 16px;
+  margin: 0 auto;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+ion-card {
+  width: 100%;
+  max-width: 420px;
+  margin: 16px;
+  border-radius: 16px;
+}
+
+ion-card-content {
+  padding: 32px 24px;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.logo-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-primary-shade) 100%);
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+.logo-icon {
+  font-size: 32px;
+  color: #fff;
+}
+
+.login-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ion-text-color);
+  margin: 0 0 8px 0;
+}
+
+.login-subtitle {
+  font-size: 0.95rem;
+  color: var(--ion-color-medium);
+  margin: 0;
+}
+
+.input-item {
+  --border-radius: 12px;
+  --padding-start: 16px;
+  --inner-padding-end: 16px;
+  margin-bottom: 16px;
+}
+
+.error-message {
+  display: block;
+  padding-left: 16px;
+  margin-top: -8px;
+  margin-bottom: 8px;
+
+  small {
+    font-size: 0.75rem;
+  }
+}
+
+.forgot-password {
+  text-align: right;
+  margin-bottom: 8px;
+
+  a {
+    font-size: 0.85rem;
+    color: var(--ion-color-primary);
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.submit-btn {
+  --border-radius: 12px;
+  margin-top: 16px;
+  height: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+}
+
+ion-spinner {
+  width: 20px;
+  height: 20px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--ion-color-step-200);
+  }
+
+  span {
+    padding: 0 16px;
+    color: var(--ion-color-medium);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+.google-signin-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 50px;
+  padding: 0 16px;
+  background-color: var(--ion-background-color);
+  border: 1px solid var(--ion-color-step-300);
+  border-radius: 12px;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ion-text-color);
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+
+  &:hover:not(:disabled) {
+    background-color: var(--ion-color-step-100);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--ion-color-primary-rgb), 0.3);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--ion-color-step-150);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .google-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  span {
+    white-space: nowrap;
+  }
+
+  ion-spinner {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--ion-color-step-200);
+
+  ion-text {
+    font-size: 0.9rem;
+    color: var(--ion-color-medium);
+
+    a {
+      color: var(--ion-color-primary);
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+<ion-menu [contentId]="contentId()" type="overlay">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{ menuTitle() }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      @for (item of navItems; track item.url) {
+        <ion-menu-toggle auto-hide="false">
+          <ion-item [routerLink]="item.url" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: item.url === '/' }">
+            <ion-icon [name]="item.icon" slot="start" aria-hidden="true"></ion-icon>
+            <ion-label>{{ item.title }}</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      }
+    </ion-list>
+  </ion-content>
+</ion-menu>

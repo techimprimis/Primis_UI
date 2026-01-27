@@ -1,0 +1,25 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    @if (showMenu()) {
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    }
+
+    <ion-title>{{ title() }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear" size="small" class="header-link" routerLink="/terms">
+        <ion-icon slot="icon-only" name="document-text-outline" aria-hidden="true"></ion-icon>
+      </ion-button>
+
+      <ion-button fill="clear" size="small" class="header-link" routerLink="/privacy">
+        <ion-icon slot="icon-only" name="shield-checkmark-outline" aria-hidden="true"></ion-icon>
+      </ion-button>
+
+      <ion-button fill="clear" size="small" class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
+        <ion-icon slot="icon-only" [name]="isDarkMode ? 'sunny-outline' : 'moon-outline'" aria-hidden="true"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

@@ -61,7 +61,7 @@ $z-index-tooltip: 1070;
 
 // Focus ring mixin
 @mixin focus-ring {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--ion-color-primary);
   outline-offset: 2px;
 }
 

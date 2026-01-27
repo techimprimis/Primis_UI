@@ -1,36 +1,7 @@
-<main class="shell">
-  <header class="topbar">
-    <div class="brand">
-      <span class="brand-mark"></span>
-      <span class="brand-name">TechImprimis</span>
-    </div>
-    <app-theme-toggle></app-theme-toggle>
-  </header>
+<ion-app>
+  <app-header />
 
-  <section class="panel">
-    <h1>Welcome to TechImprimis</h1>
-    <p class="lead">Switch between light and dark theme using the toggle in the top right corner.</p>
+  <ion-router-outlet></ion-router-outlet>
 
-    <div class="swatches">
-      <div class="swatch" aria-label="Background swatch">
-        <span class="swatch-label">Background</span>
-        <span class="swatch-color" aria-hidden="true"></span>
-      </div>
-      <div class="swatch" aria-label="Surface swatch">
-        <span class="swatch-label">Surface</span>
-        <span class="swatch-color surface" aria-hidden="true"></span>
-      </div>
-      <div class="swatch" aria-label="Accent swatch">
-        <span class="swatch-label">Accent</span>
-        <span class="swatch-color accent" aria-hidden="true"></span>
-      </div>
-    </div>
-
-    <div class="info-card">
-      <p>Current theme: <strong>{{ isDarkMode ? 'Dark' : 'Light' }}</strong></p>
-      <p class="muted">The toggle updates the <code>data-theme</code> attribute on the document, allowing components to use the same CSS variables.</p>
-    </div>
-  </section>
-
-  <router-outlet />
-</main>
+  <app-footer />
+</ion-app>
