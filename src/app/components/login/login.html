@@ -11,18 +11,16 @@
         </div>
 
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <ion-item lines="full" class="input-item">
-            <ion-input
-              formControlName="email"
-              type="email"
-              label="Email"
-              labelPlacement="floating"
-              placeholder="Enter your email"
-              autocomplete="email"
-            >
-              <ion-icon slot="start" name="person-outline" aria-hidden="true"></ion-icon>
-            </ion-input>
-          </ion-item>
+          <ion-input
+            formControlName="email"
+            type="email"
+            label="Email"
+            labelPlacement="stacked"
+            placeholder="Enter your email"
+            autocomplete="email"
+            fill="outline"
+            class="input-field"
+          ></ion-input>
           @if (emailControl?.touched && emailControl?.errors) {
             <ion-text color="danger" class="error-message">
               @if (emailControl?.errors?.['required']) {
@@ -33,19 +31,18 @@
             </ion-text>
           }
 
-          <ion-item lines="full" class="input-item">
-            <ion-input
-              formControlName="password"
-              type="password"
-              label="Password"
-              labelPlacement="floating"
-              placeholder="Enter your password"
-              autocomplete="current-password"
-            >
-              <ion-icon slot="start" name="lock-closed-outline" aria-hidden="true"></ion-icon>
-              <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-            </ion-input>
-          </ion-item>
+          <ion-input
+            formControlName="password"
+            type="password"
+            label="Password"
+            labelPlacement="stacked"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            fill="outline"
+            class="input-field"
+          >
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          </ion-input>
           @if (passwordControl?.touched && passwordControl?.errors) {
             <ion-text color="danger" class="error-message">
               @if (passwordControl?.errors?.['required']) {

@@ -4,7 +4,6 @@ import {
   IonContent,
   IonCard,
   IonCardContent,
-  IonItem,
   IonInput,
   IonButton,
   IonIcon,
@@ -13,7 +12,7 @@ import {
   IonSpinner,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { personOutline, lockClosedOutline, cubeOutline } from 'ionicons/icons';
+import { cubeOutline } from 'ionicons/icons';
 
 export interface LoginCredentials {
   email: string;
@@ -27,7 +26,6 @@ export interface LoginCredentials {
     IonContent,
     IonCard,
     IonCardContent,
-    IonItem,
     IonInput,
     IonButton,
     IonIcon,
@@ -48,7 +46,7 @@ export class LoginComponent {
   isGoogleLoading = signal(false);
 
   constructor(private fb: FormBuilder) {
-    addIcons({ personOutline, lockClosedOutline, cubeOutline });
+    addIcons({ cubeOutline });
 
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],

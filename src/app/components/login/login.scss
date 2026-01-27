@@ -56,18 +56,15 @@ ion-card-content {
   margin: 0;
 }
 
-.input-item {
-  --border-radius: 12px;
-  --padding-start: 16px;
-  --inner-padding-end: 16px;
+.input-field {
   margin-bottom: 16px;
 }
 
 .error-message {
   display: block;
-  padding-left: 16px;
-  margin-top: -8px;
-  margin-bottom: 8px;
+  padding: 4px 0 0 4px;
+  margin-top: -12px;
+  margin-bottom: 16px;
 
   small {
     font-size: 0.75rem;

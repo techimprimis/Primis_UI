@@ -48,7 +48,8 @@ body {
   min-height: 100vh;
   background-color: var(--ion-background-color);
   color: var(--ion-text-color);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-family: var(--ion-font-family, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Roboto', sans-serif);
+  font-size: 16px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -123,9 +124,107 @@ button {
 
 // =============================================================================
 // Forms - Using Ionic Variables
+// Note: Exclude ion-input native inputs to avoid double focus styling
 // =============================================================================
 
-input,
+// Fix browser autofill background for all inputs including Ionic
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+  -webkit-text-fill-color: #000 !important;
+  caret-color: #000 !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
+// Dark mode autofill fix - using html selector for specificity
+html.ion-palette-dark input:-webkit-autofill,
+html.ion-palette-dark input:-webkit-autofill:hover,
+html.ion-palette-dark input:-webkit-autofill:focus,
+html.ion-palette-dark input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #1e1e1e inset !important;
+  -webkit-text-fill-color: #fff !important;
+  caret-color: #fff !important;
+}
+
+// =============================================================================
+// Ionic Input Typography Overrides - Improve readability
+// =============================================================================
+
+ion-input,
+ion-textarea,
+ion-select {
+  --color: var(--ion-text-color) !important;
+  --placeholder-color: var(--ion-color-medium);
+  --placeholder-opacity: 0.7;
+  font-size: 16px;
+  font-weight: 500;
+
+  // Target the native input inside ion-input
+  input,
+  textarea {
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    color: inherit !important;
+    letter-spacing: 0.01em !important;
+  }
+}
+
+// Dark mode - ensure good contrast
+html.ion-palette-dark ion-input,
+html.ion-palette-dark ion-textarea,
+html.ion-palette-dark ion-select {
+  --color: #fff;
+
+  input,
+  textarea {
+    color: #fff !important;
+  }
+}
+
+// =============================================================================
+// General Typography Improvements
+// =============================================================================
+
+ion-label {
+  font-weight: 500 !important;
+  font-size: 14px !important;
+}
+
+ion-item {
+  --color: var(--ion-text-color);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+ion-button {
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+}
+
+ion-card-title {
+  font-weight: 600 !important;
+  font-size: 1.25rem !important;
+}
+
+ion-card-subtitle {
+  font-weight: 500 !important;
+}
+
+ion-list-header {
+  font-weight: 600 !important;
+}
+
+ion-note {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+input:not(ion-input input):not(ion-searchbar input),
 select,
 textarea {
   width: 100%;
