@@ -1,0 +1,184 @@
+// Admin login page - tweaked styling with warning/security theme
+
+.admin-content {
+  --background: linear-gradient(135deg, rgba(var(--ion-color-warning-rgb), 0.05) 0%, var(--ion-background-color) 100%);
+}
+
+.admin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  padding: 16px;
+  margin: 0 auto;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.admin-card {
+  width: 100%;
+  max-width: 420px;
+  margin: 16px;
+  border-radius: 16px;
+  border-top: 4px solid var(--ion-color-warning);
+}
+
+ion-card-content {
+  padding: 32px 24px;
+}
+
+.admin-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.logo-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, var(--ion-color-warning) 0%, var(--ion-color-warning-shade) 100%);
+  border-radius: 50%;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(var(--ion-color-warning-rgb), 0.3);
+}
+
+.logo-icon {
+  font-size: 36px;
+  color: #fff;
+}
+
+.admin-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--ion-text-color);
+  margin: 0 0 8px 0;
+}
+
+.admin-subtitle {
+  font-size: 0.95rem;
+  color: var(--ion-color-medium);
+  margin: 0;
+}
+
+.security-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: rgba(var(--ion-color-warning-rgb), 0.1);
+  border: 1px solid rgba(var(--ion-color-warning-rgb), 0.3);
+  border-radius: 8px;
+  margin-bottom: 24px;
+
+  ion-icon {
+    font-size: 18px;
+    color: var(--ion-color-warning-shade);
+  }
+
+  span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ion-color-warning-shade);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.input-field {
+  margin-bottom: 16px;
+}
+
+.error-message {
+  display: block;
+  padding: 4px 0 0 4px;
+  margin-top: -12px;
+  margin-bottom: 16px;
+
+  small {
+    font-size: 0.75rem;
+  }
+}
+
+.forgot-password {
+  text-align: right;
+  margin-bottom: 8px;
+
+  a {
+    font-size: 0.85rem;
+    color: var(--ion-color-warning-shade);
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.submit-btn {
+  --border-radius: 12px;
+  margin-top: 16px;
+  height: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+
+  ion-icon {
+    font-size: 20px;
+    margin-right: 8px;
+  }
+}
+
+ion-spinner {
+  width: 20px;
+  height: 20px;
+}
+
+.admin-footer {
+  text-align: center;
+  margin-top: 24px;
+  padding: 16px;
+  background-color: rgba(var(--ion-color-warning-rgb), 0.05);
+  border-radius: 8px;
+  border: 1px dashed rgba(var(--ion-color-warning-rgb), 0.3);
+
+  ion-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    small {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--ion-color-medium);
+      line-height: 1.4;
+    }
+
+    ion-icon {
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+  }
+}
+
+.back-to-login {
+  text-align: center;
+  margin-top: 20px;
+
+  a {
+    font-size: 0.9rem;
+    color: var(--ion-color-primary);
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
