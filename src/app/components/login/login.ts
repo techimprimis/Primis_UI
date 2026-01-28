@@ -11,6 +11,7 @@ import {
   IonText,
   IonSpinner,
 } from '@ionic/angular/standalone';
+import { RouterLink } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { arrowBackOutline, cubeOutline, personAddOutline } from 'ionicons/icons';
 
@@ -29,6 +30,7 @@ export interface SignupCredentials {
   selector: 'app-login',
   imports: [
     ReactiveFormsModule,
+    RouterLink,
     IonContent,
     IonCard,
     IonCardContent,
