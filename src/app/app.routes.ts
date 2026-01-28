@@ -22,6 +22,11 @@ export const routes: Routes = [
             import('./components/reset-password/reset-password').then((m) => m.ResetPasswordComponent),
     },
     {
+        path: 'dashboard',
+        loadComponent: () =>
+            import('./components/dashboard/dashboard').then((m) => m.DashboardComponent),
+    },
+    {
         path: 'admin',
         loadComponent: () =>
             import('./components/admin/admin').then((m) => m.AdminComponent),

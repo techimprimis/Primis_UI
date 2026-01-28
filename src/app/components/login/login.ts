@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import {
   IonContent,
@@ -10,8 +10,9 @@ import {
   IonInputPasswordToggle,
   IonText,
   IonSpinner,
+  ToastController,
 } from '@ionic/angular/standalone';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { arrowBackOutline, cubeOutline, personAddOutline } from 'ionicons/icons';
 
@@ -25,6 +26,12 @@ export interface SignupCredentials {
   email: string;
   password: string;
 }
+
+// Dummy admin credentials
+const ADMIN_CREDENTIALS = {
+  email: 'admin@techimprimis.com',
+  password: 'Admin@123',
+};
 
 @Component({
   selector: 'app-login',
@@ -46,6 +53,9 @@ export interface SignupCredentials {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
+  private router = inject(Router);
+  private toastController = inject(ToastController);
+
   loginSubmit = output<LoginCredentials>();
   signupSubmit = output<SignupCredentials>();
   googleSignIn = output<void>();
@@ -96,7 +106,31 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.loginForm.valid) {
       this.isLoading.set(true);
-      this.loginSubmit.emit(this.loginForm.value as LoginCredentials);
+      const credentials = this.loginForm.value as LoginCredentials;
+
+      // Check for admin credentials
+      if (credentials.email === ADMIN_CREDENTIALS.email &&
+          credentials.password === ADMIN_CREDENTIALS.password) {
+        // Simulate API delay
+        setTimeout(() => {
+          this.isLoading.set(false);
+          this.router.navigate(['/dashboard']);
+        }, 1000);
+      } else {
+        // Show error toast for invalid credentials
+        setTimeout(async () => {
+          this.isLoading.set(false);
+          const toast = await this.toastController.create({
+            message: 'Invalid email or password. Try admin@techimprimis.com / Admin@123',
+            duration: 4000,
+            position: 'top',
+            color: 'danger',
+          });
+          await toast.present();
+        }, 1000);
+      }
+
+      this.loginSubmit.emit(credentials);
     } else {
       this.loginForm.markAllAsTouched();
     }
