@@ -1,6 +1,8 @@
 <ion-content class="ion-padding">
   <div class="login-container">
-    <ion-card>
+    <!-- Login Card -->
+    @if (!showSignup()) {
+    <ion-card class="auth-card">
       <ion-card-content>
         <div class="login-header">
           <div class="logo-container">
@@ -96,10 +98,167 @@
 
         <div class="login-footer">
           <ion-text color="medium">
-            Don't have an account? <a href="/register">Create account</a>
+            Don't have an account? <a (click)="toggleSignup()" class="toggle-link">Create account</a>
           </ion-text>
         </div>
       </ion-card-content>
     </ion-card>
+    }
+
+    <!-- Signup Card -->
+    @if (showSignup()) {
+    <ion-card class="auth-card signup-card">
+      <ion-card-content>
+        <div class="signup-header">
+          <button type="button" class="back-btn" (click)="toggleSignup()">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+          </button>
+          <div class="header-content">
+            <div class="logo-container">
+              <ion-icon name="person-add-outline" class="logo-icon"></ion-icon>
+            </div>
+            <h1 class="login-title">Create Account</h1>
+            <p class="login-subtitle">Join TechImprimis today</p>
+          </div>
+        </div>
+
+        <form [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()">
+          <ion-input
+            formControlName="fullName"
+            type="text"
+            label="Full Name"
+            labelPlacement="stacked"
+            placeholder="Enter your full name"
+            autocomplete="name"
+            fill="outline"
+            class="input-field"
+          ></ion-input>
+          @if (signupFullNameControl?.touched && signupFullNameControl?.errors) {
+            <ion-text color="danger" class="error-message">
+              @if (signupFullNameControl?.errors?.['required']) {
+                <small>Full name is required</small>
+              } @else if (signupFullNameControl?.errors?.['minlength']) {
+                <small>Name must be at least 2 characters</small>
+              }
+            </ion-text>
+          }
+
+          <ion-input
+            formControlName="email"
+            type="email"
+            label="Email"
+            labelPlacement="stacked"
+            placeholder="Enter your email"
+            autocomplete="email"
+            fill="outline"
+            class="input-field"
+          ></ion-input>
+          @if (signupEmailControl?.touched && signupEmailControl?.errors) {
+            <ion-text color="danger" class="error-message">
+              @if (signupEmailControl?.errors?.['required']) {
+                <small>Email is required</small>
+              } @else if (signupEmailControl?.errors?.['email']) {
+                <small>Please enter a valid email</small>
+              }
+            </ion-text>
+          }
+
+          <ion-input
+            formControlName="password"
+            type="password"
+            label="Password"
+            labelPlacement="stacked"
+            placeholder="Create a strong password"
+            autocomplete="new-password"
+            fill="outline"
+            class="input-field"
+          >
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          </ion-input>
+          @if (signupPasswordControl?.touched && signupPasswordControl?.errors) {
+            <ion-text color="danger" class="error-message">
+              @if (signupPasswordControl?.errors?.['required']) {
+                <small>Password is required</small>
+              } @else if (signupPasswordControl?.errors?.['minlength']) {
+                <small>Password must be at least 8 characters</small>
+              } @else if (signupPasswordControl?.errors?.['passwordStrength']) {
+                <small>Password must include uppercase, lowercase, and a number</small>
+              }
+            </ion-text>
+          }
+
+          <ion-input
+            formControlName="confirmPassword"
+            type="password"
+            label="Confirm Password"
+            labelPlacement="stacked"
+            placeholder="Confirm your password"
+            autocomplete="new-password"
+            fill="outline"
+            class="input-field"
+          >
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          </ion-input>
+          @if (signupConfirmPasswordControl?.touched && (signupConfirmPasswordControl?.errors || signupForm.errors?.['passwordMismatch'])) {
+            <ion-text color="danger" class="error-message">
+              @if (signupConfirmPasswordControl?.errors?.['required']) {
+                <small>Please confirm your password</small>
+              } @else if (signupForm.errors?.['passwordMismatch']) {
+                <small>Passwords do not match</small>
+              }
+            </ion-text>
+          }
+
+          <div class="terms-notice">
+            <ion-text color="medium">
+              <small>By creating an account, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a></small>
+            </ion-text>
+          </div>
+
+          <ion-button
+            type="submit"
+            expand="block"
+            class="submit-btn"
+            [disabled]="isSignupLoading()"
+          >
+            @if (isSignupLoading()) {
+              <ion-spinner name="crescent"></ion-spinner>
+            } @else {
+              Create Account
+            }
+          </ion-button>
+        </form>
+
+        <div class="divider">
+          <span>or</span>
+        </div>
+
+        <button
+          type="button"
+          class="google-signin-btn"
+          (click)="onGoogleSignIn()"
+          [disabled]="isGoogleLoading()"
+        >
+          @if (isGoogleLoading()) {
+            <ion-spinner name="crescent"></ion-spinner>
+          } @else {
+            <svg class="google-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            <span>Continue with Google</span>
+          }
+        </button>
+
+        <div class="login-footer">
+          <ion-text color="medium">
+            Already have an account? <a (click)="toggleSignup()" class="toggle-link">Sign in</a>
+          </ion-text>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    }
   </div>
 </ion-content>
