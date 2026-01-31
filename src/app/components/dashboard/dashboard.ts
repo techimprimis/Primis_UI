@@ -9,12 +9,11 @@ import {
   IonItem,
   IonIcon,
   IonLabel,
-  IonButtons,
-  IonButton,
   IonCard,
   IonCardContent,
   IonNote,
   IonMenuButton,
+  IonButtons,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
@@ -22,12 +21,8 @@ import {
   statsChartOutline,
   documentTextOutline,
   walletOutline,
-  sunnyOutline,
-  moonOutline,
   personOutline,
-  notificationsOutline,
 } from 'ionicons/icons';
-import { ThemeService } from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -40,12 +35,11 @@ import { ThemeService } from '../../core/services/theme.service';
     IonItem,
     IonIcon,
     IonLabel,
-    IonButtons,
-    IonButton,
     IonCard,
     IonCardContent,
     IonNote,
     IonMenuButton,
+    IonButtons,
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
@@ -53,7 +47,6 @@ import { ThemeService } from '../../core/services/theme.service';
 })
 export class DashboardComponent {
   private router = inject(Router);
-  protected themeService = inject(ThemeService);
 
   currentUser = signal({
     name: 'Admin User',
@@ -67,19 +60,8 @@ export class DashboardComponent {
       statsChartOutline,
       documentTextOutline,
       walletOutline,
-      sunnyOutline,
-      moonOutline,
       personOutline,
-      notificationsOutline,
     });
-  }
-
-  toggleTheme(): void {
-    this.themeService.toggleTheme();
-  }
-
-  get isDarkMode(): boolean {
-    return this.themeService.isDarkMode();
   }
 
   logout(): void {

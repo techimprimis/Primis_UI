@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import {
   IonMenu,
   IonHeader,
@@ -11,9 +11,10 @@ import {
   IonIcon,
   IonLabel,
   IonMenuToggle,
+  IonFooter,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { settingsOutline } from 'ionicons/icons';
+import { settingsOutline, logOutOutline } from 'ionicons/icons';
 
 export interface NavItem {
   title: string;
@@ -36,22 +37,28 @@ export interface NavItem {
     IonIcon,
     IonLabel,
     IonMenuToggle,
+    IonFooter,
   ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent {
+  private router = inject(Router);
+
   contentId = input<string>('main-content');
   menuTitle = input<string>('Menu');
-
-  navItems: NavItem[] = [
-    { title: 'Settings', url: '/settings', icon: 'settings-outline' },
-  ];
 
   constructor() {
     addIcons({
       settingsOutline,
+      logOutOutline,
     });
+  }
+
+  signOut(): void {
+    // Clear any stored auth data here
+    localStorage.removeItem('auth-token');
+    this.router.navigate(['/login']);
   }
 }

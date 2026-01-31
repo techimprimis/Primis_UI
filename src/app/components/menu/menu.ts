@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   IonHeader,
@@ -22,11 +22,12 @@ import {
   chevronForwardOutline,
   checkmarkOutline,
 } from 'ionicons/icons';
+import { ThemeService } from '../../core/services/theme.service';
 
 type MenuView = 'main' | 'appearance' | 'text-size';
 
 interface ThemeOption {
-  value: string;
+  value: 'light' | 'dark' | 'system';
   label: string;
 }
 
@@ -58,11 +59,13 @@ interface TextSizeOption {
   styleUrl: './menu.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit {
+  private themeService = inject(ThemeService);
+
   currentView = signal<MenuView>('main');
-  
+
   // Appearance options
-  selectedTheme = signal<string>('system');
+  selectedTheme = signal<'light' | 'dark' | 'system'>('system');
   themes: ThemeOption[] = [
     { value: 'light', label: 'Light' },
     { value: 'dark', label: 'Dark' },
@@ -87,6 +90,28 @@ export class MenuComponent {
     });
   }
 
+  ngOnInit(): void {
+    // Load saved preferences
+    this.loadSavedPreferences();
+  }
+
+  private loadSavedPreferences(): void {
+    // Load theme preference
+    const savedTheme = localStorage.getItem('theme-preference') as 'light' | 'dark' | 'system' | null;
+    if (savedTheme) {
+      this.selectedTheme.set(savedTheme);
+    } else {
+      // Determine current theme based on ThemeService
+      this.selectedTheme.set(this.themeService.isDarkMode() ? 'dark' : 'light');
+    }
+
+    // Load text size preference
+    const savedTextSize = localStorage.getItem('text-size-preference');
+    if (savedTextSize) {
+      this.selectedTextSize.set(parseInt(savedTextSize, 10));
+    }
+  }
+
   navigateTo(view: MenuView): void {
     this.currentView.set(view);
   }
@@ -95,7 +120,7 @@ export class MenuComponent {
     this.currentView.set('main');
   }
 
-  onThemeChange(theme: string): void {
+  onThemeChange(theme: 'light' | 'dark' | 'system'): void {
     this.selectedTheme.set(theme);
     this.applyTheme(theme);
   }
@@ -105,23 +130,17 @@ export class MenuComponent {
     this.applyTextSize(size);
   }
 
-  private applyTheme(theme: string): void {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    if (theme === 'dark') {
-      document.body.classList.add('dark');
-    } else if (theme === 'light') {
-      document.body.classList.remove('dark');
+  private applyTheme(theme: 'light' | 'dark' | 'system'): void {
+    if (theme === 'system') {
+      // Remove saved preference and let system decide
+      localStorage.removeItem('theme-preference');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      this.themeService.setTheme(prefersDark ? 'dark' : 'light', false);
     } else {
-      // System default
-      if (prefersDark.matches) {
-        document.body.classList.add('dark');
-      } else {
-        document.body.classList.remove('dark');
-      }
+      this.themeService.setTheme(theme, true);
     }
-    
-    // Save preference to localStorage
+
+    // Save the user's choice (system, light, or dark)
     localStorage.setItem('theme-preference', theme);
   }
 

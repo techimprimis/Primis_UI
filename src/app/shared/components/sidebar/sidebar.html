@@ -5,16 +5,26 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
-    <ion-list>
-      @for (item of navItems; track item.url) {
-        <ion-menu-toggle auto-hide="false">
-          <ion-item [routerLink]="item.url" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: item.url === '/' }">
-            <ion-icon [name]="item.icon" slot="start" aria-hidden="true"></ion-icon>
-            <ion-label>{{ item.title }}</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-      }
-    </ion-list>
+  <ion-content class="sidebar-content">
+    <!-- Spacer to push items to bottom -->
+    <div class="spacer"></div>
   </ion-content>
+
+  <ion-footer>
+    <ion-list lines="none">
+      <ion-menu-toggle auto-hide="false">
+        <ion-item routerLink="/settings" routerLinkActive="selected" button detail="false">
+          <ion-icon name="settings-outline" slot="start" aria-hidden="true"></ion-icon>
+          <ion-label>Settings</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="false">
+        <ion-item button detail="false" (click)="signOut()" class="sign-out-item">
+          <ion-icon name="log-out-outline" slot="start" aria-hidden="true"></ion-icon>
+          <ion-label>Sign Out</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-footer>
 </ion-menu>

@@ -2,6 +2,22 @@ ion-menu {
   --width: 280px;
 }
 
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.spacer {
+  flex: 1;
+}
+
+ion-footer {
+  ion-list {
+    padding: 8px 0;
+    background: transparent;
+  }
+}
+
 ion-item {
   --padding-start: 16px;
   --padding-end: 16px;
@@ -18,6 +34,18 @@ ion-item {
 
   &:hover:not(.selected) {
     --background: var(--ion-color-light);
+  }
+
+  &.sign-out-item {
+    --color: var(--ion-color-danger);
+
+    ion-icon {
+      color: var(--ion-color-danger);
+    }
+
+    &:hover {
+      --background: var(--ion-color-danger-tint);
+    }
   }
 }
 
