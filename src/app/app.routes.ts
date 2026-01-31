@@ -27,8 +27,8 @@ export const routes: Routes = [
             import('./components/dashboard/dashboard').then((m) => m.DashboardComponent),
     },
     {
-        path: 'admin',
+        path: 'settings',
         loadComponent: () =>
-            import('./components/admin/admin').then((m) => m.AdminComponent),
+            import('./components/menu/menu').then((m) => m.MenuComponent),
     },
 ];

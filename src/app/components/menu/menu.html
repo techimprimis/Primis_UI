@@ -1,0 +1,83 @@
+@switch (currentView()) {
+  @case ('main') {
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Settings</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list lines="full">
+        <ion-item button (click)="navigateTo('appearance')" detail="true">
+          <ion-icon name="color-palette-outline" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <h2>Appearance</h2>
+            <p>{{ getThemeLabel() }}</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item button (click)="navigateTo('text-size')" detail="true">
+          <ion-icon name="text-outline" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <h2>Text Size</h2>
+            <p>{{ getTextSizeLabel() }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  }
+
+  @case ('appearance') {
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/settings" (click)="goBack(); $event.preventDefault()"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Appearance</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list lines="full">
+        @for (theme of themes; track theme.value) {
+          <ion-item button (click)="onThemeChange(theme.value)">
+            <ion-label>{{ theme.label }}</ion-label>
+            @if (selectedTheme() === theme.value) {
+              <ion-icon name="checkmark-outline" slot="end" color="primary"></ion-icon>
+            }
+          </ion-item>
+        }
+      </ion-list>
+    </ion-content>
+  }
+
+  @case ('text-size') {
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/settings" (click)="goBack(); $event.preventDefault()"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Text Size</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <div class="text-preview">
+        <p [style.font-size.px]="selectedTextSize()">
+          Preview: The quick brown fox jumps over the lazy dog.
+        </p>
+      </div>
+
+      <ion-list lines="full">
+        @for (option of textSizeOptions; track option.value) {
+          <ion-item button (click)="onTextSizeChange(option.value)">
+            <ion-label [style.font-size.px]="option.value">{{ option.label }}</ion-label>
+            @if (selectedTextSize() === option.value) {
+              <ion-icon name="checkmark-outline" slot="end" color="primary"></ion-icon>
+            }
+          </ion-item>
+        }
+      </ion-list>
+    </ion-content>
+  }
+}

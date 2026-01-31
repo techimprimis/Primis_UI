@@ -13,14 +13,7 @@ import {
   IonMenuToggle,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import {
-  homeOutline,
-  personOutline,
-  settingsOutline,
-  informationCircleOutline,
-  mailOutline,
-  documentTextOutline,
-} from 'ionicons/icons';
+import { settingsOutline } from 'ionicons/icons';
 
 export interface NavItem {
   title: string;
@@ -53,22 +46,12 @@ export class SidebarComponent {
   menuTitle = input<string>('Menu');
 
   navItems: NavItem[] = [
-    { title: 'Home', url: '/', icon: 'home-outline' },
-    { title: 'About', url: '/about', icon: 'information-circle-outline' },
-    { title: 'Profile', url: '/profile', icon: 'person-outline' },
-    { title: 'Contact', url: '/contact', icon: 'mail-outline' },
-    { title: 'Documents', url: '/documents', icon: 'document-text-outline' },
     { title: 'Settings', url: '/settings', icon: 'settings-outline' },
   ];
 
   constructor() {
     addIcons({
-      homeOutline,
-      personOutline,
       settingsOutline,
-      informationCircleOutline,
-      mailOutline,
-      documentTextOutline,
     });
   }
 }

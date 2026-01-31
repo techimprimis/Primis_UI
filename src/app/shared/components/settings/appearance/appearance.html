@@ -1,0 +1,12 @@
+<ion-card>
+  <ion-card-content>
+    <ion-radio-group [value]="selectedTheme" (ionChange)="onThemeChange($event)">
+      @for (theme of themes; track theme.value) {
+        <ion-item lines="none">
+          <ion-label>{{ theme.label }}</ion-label>
+          <ion-radio slot="end" [value]="theme.value"></ion-radio>
+        </ion-item>
+      }
+    </ion-radio-group>
+  </ion-card-content>
+</ion-card>

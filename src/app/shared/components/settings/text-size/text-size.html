@@ -1,0 +1,29 @@
+<ion-card>
+  <ion-card-content>
+    <ion-item lines="none">
+      <ion-label position="stacked">Adjust Text Size</ion-label>
+      <ion-range
+        [min]="12"
+        [max]="24"
+        [step]="4"
+        [value]="textSize"
+        [snaps]="true"
+        [ticks]="true"
+        (ionChange)="onTextSizeChange($event)"
+      >
+        <span slot="start" class="range-label">A</span>
+        <span slot="end" class="range-label range-label-large">A</span>
+      </ion-range>
+    </ion-item>
+    <div class="size-labels">
+      @for (option of textSizeOptions; track option.value) {
+        <span
+          class="size-label"
+          [class.active]="textSize === option.value"
+        >
+          {{ option.label }}
+        </span>
+      }
+    </div>
+  </ion-card-content>
+</ion-card>

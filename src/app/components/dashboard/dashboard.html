@@ -1,206 +1,113 @@
-<ion-split-pane contentId="dashboard-content" when="lg">
-  <!-- Sidebar Menu -->
-  <ion-menu contentId="dashboard-content" menuId="dashboard-menu" type="overlay">
-    <ion-header class="ion-no-border">
-      <ion-toolbar>
-        <div class="sidebar-brand">
-          <div class="brand-logo">
-            <ion-icon name="stats-chart-outline"></ion-icon>
-          </div>
-          <span class="brand-text">TechImprimis</span>
-        </div>
-      </ion-toolbar>
-    </ion-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
 
-    <ion-content>
-      <!-- User Profile Section -->
-      <div class="user-profile">
-        <ion-avatar class="user-avatar">
-          @if (currentUser().avatar) {
-            <img [src]="currentUser().avatar" [alt]="currentUser().name" />
-          } @else {
-            <ion-icon name="person-circle-outline" class="default-avatar"></ion-icon>
-          }
-        </ion-avatar>
-        <div class="user-info">
-          <h4 class="user-name">{{ currentUser().name }}</h4>
-          <ion-chip class="user-role" color="primary">
-            <ion-label>{{ currentUser().role }}</ion-label>
-          </ion-chip>
-        </div>
-      </div>
+    <ion-title>Dashboard</ion-title>
 
-      <!-- Navigation Items -->
-      <ion-list class="nav-list">
-        @for (item of navItems; track item.url) {
-          <ion-menu-toggle auto-hide="false">
-            <ion-item
-              [routerLink]="item.url"
-              routerLinkActive="selected"
-              [routerLinkActiveOptions]="{ exact: item.url === '/dashboard' }"
-              lines="none"
-              class="nav-item"
-            >
-              <ion-icon [name]="item.icon" slot="start" aria-hidden="true"></ion-icon>
-              <ion-label>{{ item.title }}</ion-label>
-              @if (item.badge) {
-                <ion-badge slot="end" color="danger">{{ item.badge }}</ion-badge>
-              }
-            </ion-item>
-          </ion-menu-toggle>
-        }
-      </ion-list>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="toggleTheme()">
+        <ion-icon slot="icon-only" [name]="isDarkMode ? 'sunny-outline' : 'moon-outline'"></ion-icon>
+      </ion-button>
 
-      <!-- Logout Section -->
-      <div class="sidebar-footer">
-        <ion-item button (click)="logout()" lines="none" class="logout-item">
-          <ion-icon name="log-out-outline" slot="start" aria-hidden="true"></ion-icon>
-          <ion-label>Logout</ion-label>
-        </ion-item>
-      </div>
-    </ion-content>
-  </ion-menu>
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-  <!-- Main Content Area -->
-  <div class="ion-page" id="dashboard-content">
-    <ion-header class="ion-no-border">
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-button (click)="toggleMenu()" class="menu-toggle-btn">
-            <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-
-        <ion-title>Dashboard</ion-title>
-
-        <ion-buttons slot="end">
-          <ion-button fill="clear" class="header-btn" (click)="toggleTheme()">
-            <ion-icon slot="icon-only" [name]="isDarkMode ? 'sunny-outline' : 'moon-outline'"></ion-icon>
-          </ion-button>
-
-          <ion-button fill="clear" class="header-btn notification-btn">
-            <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
-            <ion-badge class="notification-badge" color="danger">5</ion-badge>
-          </ion-button>
-
-          <ion-button fill="clear" class="header-btn user-btn">
-            <ion-avatar class="header-avatar">
-              @if (currentUser().avatar) {
-                <img [src]="currentUser().avatar" [alt]="currentUser().name" />
-              } @else {
-                <ion-icon name="person-circle-outline" class="header-user-icon"></ion-icon>
-              }
-            </ion-avatar>
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content class="ion-padding">
-      <!-- Dashboard Overview Content -->
-      <div class="dashboard-content">
+<ion-content class="main-content">
+      <div class="content-wrapper">
+        <!-- Welcome Section -->
         <div class="welcome-section">
-          <h1 class="welcome-title">Welcome back, {{ currentUser().name }}! 👋</h1>
-          <p class="welcome-subtitle">Here's what's happening with your projects today.</p>
+          <h1>Welcome back, {{ currentUser().name }}!</h1>
+          <p>Here's what's happening with your projects today.</p>
         </div>
 
         <!-- Stats Cards -->
         <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon users">
-              <ion-icon name="people-outline"></ion-icon>
-            </div>
-            <div class="stat-info">
-              <h3 class="stat-value">2,543</h3>
+          <ion-card class="stat-card">
+            <ion-card-content>
+              <div class="stat-header">
+                <ion-icon name="people-outline" color="primary"></ion-icon>
+                <span class="stat-change positive">+12.5%</span>
+              </div>
+              <h2 class="stat-value">2,543</h2>
               <p class="stat-label">Total Users</p>
-              <span class="stat-change positive">+12.5%</span>
-            </div>
-          </div>
+            </ion-card-content>
+          </ion-card>
 
-          <div class="stat-card">
-            <div class="stat-icon revenue">
-              <ion-icon name="wallet-outline"></ion-icon>
-            </div>
-            <div class="stat-info">
-              <h3 class="stat-value">$45,678</h3>
+          <ion-card class="stat-card">
+            <ion-card-content>
+              <div class="stat-header">
+                <ion-icon name="wallet-outline" color="success"></ion-icon>
+                <span class="stat-change positive">+8.2%</span>
+              </div>
+              <h2 class="stat-value">$45,678</h2>
               <p class="stat-label">Revenue</p>
-              <span class="stat-change positive">+8.2%</span>
-            </div>
-          </div>
+            </ion-card-content>
+          </ion-card>
 
-          <div class="stat-card">
-            <div class="stat-icon orders">
-              <ion-icon name="document-text-outline"></ion-icon>
-            </div>
-            <div class="stat-info">
-              <h3 class="stat-value">1,234</h3>
+          <ion-card class="stat-card">
+            <ion-card-content>
+              <div class="stat-header">
+                <ion-icon name="document-text-outline" color="warning"></ion-icon>
+                <span class="stat-change negative">-2.4%</span>
+              </div>
+              <h2 class="stat-value">1,234</h2>
               <p class="stat-label">Orders</p>
-              <span class="stat-change negative">-2.4%</span>
-            </div>
-          </div>
+            </ion-card-content>
+          </ion-card>
 
-          <div class="stat-card">
-            <div class="stat-icon growth">
-              <ion-icon name="stats-chart-outline"></ion-icon>
-            </div>
-            <div class="stat-info">
-              <h3 class="stat-value">89.2%</h3>
+          <ion-card class="stat-card">
+            <ion-card-content>
+              <div class="stat-header">
+                <ion-icon name="stats-chart-outline" color="tertiary"></ion-icon>
+                <span class="stat-change positive">+4.7%</span>
+              </div>
+              <h2 class="stat-value">89.2%</h2>
               <p class="stat-label">Growth</p>
-              <span class="stat-change positive">+4.7%</span>
-            </div>
-          </div>
+            </ion-card-content>
+          </ion-card>
         </div>
 
         <!-- Recent Activity Section -->
-        <div class="section-card">
-          <div class="section-header">
-            <h2 class="section-title">Recent Activity</h2>
-            <ion-button fill="clear" size="small">View All</ion-button>
-          </div>
-          <ion-list class="activity-list">
-            <ion-item lines="full">
-              <ion-avatar slot="start" class="activity-avatar">
-                <ion-icon name="person-circle-outline"></ion-icon>
-              </ion-avatar>
-              <ion-label>
-                <h3>New user registration</h3>
-                <p>John Doe signed up for an account</p>
-              </ion-label>
-              <ion-label slot="end" class="activity-time">2 min ago</ion-label>
-            </ion-item>
-            <ion-item lines="full">
-              <ion-avatar slot="start" class="activity-avatar success">
-                <ion-icon name="wallet-outline"></ion-icon>
-              </ion-avatar>
-              <ion-label>
-                <h3>Payment received</h3>
-                <p>$1,234.00 from Premium subscription</p>
-              </ion-label>
-              <ion-label slot="end" class="activity-time">15 min ago</ion-label>
-            </ion-item>
-            <ion-item lines="full">
-              <ion-avatar slot="start" class="activity-avatar warning">
-                <ion-icon name="document-text-outline"></ion-icon>
-              </ion-avatar>
-              <ion-label>
-                <h3>New order placed</h3>
-                <p>Order #12345 is pending review</p>
-              </ion-label>
-              <ion-label slot="end" class="activity-time">1 hour ago</ion-label>
-            </ion-item>
-            <ion-item lines="none">
-              <ion-avatar slot="start" class="activity-avatar">
-                <ion-icon name="notifications-outline"></ion-icon>
-              </ion-avatar>
-              <ion-label>
-                <h3>System update</h3>
-                <p>Version 2.5.0 deployed successfully</p>
-              </ion-label>
-              <ion-label slot="end" class="activity-time">3 hours ago</ion-label>
-            </ion-item>
-          </ion-list>
-        </div>
+        <div class="section-title">Recent Activity</div>
+        <ion-list lines="inset" class="activity-list">
+          <ion-item>
+            <ion-icon name="person-outline" slot="start" color="primary"></ion-icon>
+            <ion-label>
+              <h3>New user registration</h3>
+              <p>John Doe signed up for an account</p>
+            </ion-label>
+            <ion-note slot="end">2 min ago</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="wallet-outline" slot="start" color="success"></ion-icon>
+            <ion-label>
+              <h3>Payment received</h3>
+              <p>$1,234.00 from Premium subscription</p>
+            </ion-label>
+            <ion-note slot="end">15 min ago</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="document-text-outline" slot="start" color="warning"></ion-icon>
+            <ion-label>
+              <h3>New order placed</h3>
+              <p>Order #12345 is pending review</p>
+            </ion-label>
+            <ion-note slot="end">1 hour ago</ion-note>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-icon name="notifications-outline" slot="start" color="medium"></ion-icon>
+            <ion-label>
+              <h3>System update</h3>
+              <p>Version 2.5.0 deployed successfully</p>
+            </ion-label>
+            <ion-note slot="end">3 hours ago</ion-note>
+          </ion-item>
+        </ion-list>
       </div>
     </ion-content>
-  </div>
-</ion-split-pane>

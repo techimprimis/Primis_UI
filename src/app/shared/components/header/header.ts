@@ -12,6 +12,7 @@ import {
 import { addIcons } from 'ionicons';
 import { sunnyOutline, moonOutline, documentTextOutline, shieldCheckmarkOutline } from 'ionicons/icons';
 import { ThemeService } from '../../../core/services/theme.service';
+import { PlatformService } from '../../../core/services/platform.service';
 
 @Component({
   selector: 'app-header',
@@ -25,6 +26,7 @@ export class HeaderComponent {
   showMenu = input<boolean>(true);
 
   protected themeService = inject(ThemeService);
+  protected platformService = inject(PlatformService);
 
   constructor() {
     addIcons({ sunnyOutline, moonOutline, documentTextOutline, shieldCheckmarkOutline });

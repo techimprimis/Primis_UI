@@ -27,10 +27,10 @@ export interface SignupCredentials {
   password: string;
 }
 
-// Dummy admin credentials
+// Dummy admin credentials for testing
 const ADMIN_CREDENTIALS = {
-  email: 'admin@techimprimis.com',
-  password: 'Admin@123',
+  email: 'admin',
+  password: 'admin',
 };
 
 @Component({
@@ -71,8 +71,8 @@ export class LoginComponent {
     addIcons({ cubeOutline, personAddOutline, arrowBackOutline });
 
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(4)]],
     });
 
     this.signupForm = this.fb.group({
@@ -121,7 +121,7 @@ export class LoginComponent {
         setTimeout(async () => {
           this.isLoading.set(false);
           const toast = await this.toastController.create({
-            message: 'Invalid email or password. Try admin@techimprimis.com / Admin@123',
+            message: 'Invalid credentials. Try admin / admin',
             duration: 4000,
             position: 'top',
             color: 'danger',

@@ -15,20 +15,18 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <ion-input
             formControlName="email"
-            type="email"
-            label="Email"
+            type="text"
+            label="Username"
             labelPlacement="stacked"
-            placeholder="Enter your email"
-            autocomplete="email"
+            placeholder="Enter your username"
+            autocomplete="username"
             fill="outline"
             class="input-field"
           ></ion-input>
           @if (emailControl?.touched && emailControl?.errors) {
             <ion-text color="danger" class="error-message">
               @if (emailControl?.errors?.['required']) {
-                <small>Email is required</small>
-              } @else if (emailControl?.errors?.['email']) {
-                <small>Please enter a valid email</small>
+                <small>Username is required</small>
               }
             </ion-text>
           }
@@ -50,7 +48,7 @@
               @if (passwordControl?.errors?.['required']) {
                 <small>Password is required</small>
               } @else if (passwordControl?.errors?.['minlength']) {
-                <small>Password must be at least 6 characters</small>
+                <small>Password must be at least 4 characters</small>
               }
             </ion-text>
           }
