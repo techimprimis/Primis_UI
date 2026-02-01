@@ -3,19 +3,23 @@ ion-menu {
 }
 
 .sidebar-content {
-  display: flex;
-  flex-direction: column;
+  --background: var(--ion-background-color);
+
+  &::part(scroll) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
 }
 
 .spacer {
   flex: 1;
 }
 
-ion-footer {
-  ion-list {
-    padding: 8px 0;
-    background: transparent;
-  }
+.bottom-menu {
+  padding: 8px 0;
+  background: var(--ion-background-color);
+  margin-top: auto;
 }
 
 ion-item {
@@ -33,19 +37,7 @@ ion-item {
   }
 
   &:hover:not(.selected) {
-    --background: var(--ion-color-light);
-  }
-
-  &.sign-out-item {
-    --color: var(--ion-color-danger);
-
-    ion-icon {
-      color: var(--ion-color-danger);
-    }
-
-    &:hover {
-      --background: var(--ion-color-danger-tint);
-    }
+    --background: rgba(var(--ion-text-color-rgb), 0.08);
   }
 }
 

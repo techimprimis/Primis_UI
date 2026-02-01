@@ -23,6 +23,59 @@
 @import '@ionic/angular/css/palettes/dark.class.css';
 
 // =============================================================================
+// Light Theme Base Variables (Default)
+// =============================================================================
+
+:root {
+  --app-font-size: 16px;
+  --ion-background-color: #ffffff;
+  --ion-background-color-rgb: 255, 255, 255;
+  --ion-text-color: #000000;
+  --ion-text-color-rgb: 0, 0, 0;
+
+  --ion-color-step-50: #f2f2f2;
+  --ion-color-step-100: #e6e6e6;
+  --ion-color-step-150: #d9d9d9;
+  --ion-color-step-200: #cccccc;
+  --ion-color-step-250: #bfbfbf;
+  --ion-color-step-300: #b3b3b3;
+  --ion-color-step-350: #a6a6a6;
+  --ion-color-step-400: #999999;
+  --ion-color-step-450: #8c8c8c;
+  --ion-color-step-500: #808080;
+  --ion-color-step-550: #737373;
+  --ion-color-step-600: #666666;
+  --ion-color-step-650: #595959;
+  --ion-color-step-700: #4d4d4d;
+  --ion-color-step-750: #404040;
+  --ion-color-step-800: #333333;
+  --ion-color-step-850: #262626;
+  --ion-color-step-900: #1a1a1a;
+  --ion-color-step-950: #0d0d0d;
+
+  --ion-item-background: #ffffff;
+  --ion-card-background: #ffffff;
+  --ion-toolbar-background: #ffffff;
+}
+
+/* Enforce underline style for all floating label ion-inputs */
+ion-input[labelPlacement='floating'],
+ion-input[label-placement='floating'] {
+  --border-radius: 0;
+  --border-width: 0 0 2px 0;
+  --border-style: solid;
+  --border-color: var(--ion-color-step-300, #b3b3b3);
+  --highlight-color-focused: var(--ion-color-primary, #3880ff);
+  --background: transparent;
+  --box-shadow: none;
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0.5rem;
+  --padding-bottom: 0.5rem;
+  --min-height: 48px;
+}
+
+// =============================================================================
 // Base Styles
 // =============================================================================
 
@@ -34,7 +87,8 @@
 
 // Smooth theme transitions
 html {
-  &, * {
+  &,
+  * {
     transition:
       background-color 0.25s ease,
       color 0.25s ease,
@@ -48,18 +102,65 @@ body {
   min-height: 100vh;
   background-color: var(--ion-background-color);
   color: var(--ion-text-color);
-  font-family: var(--ion-font-family, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Roboto', sans-serif);
-  font-size: 16px;
+  font-family: var(
+    --ion-font-family,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Helvetica Neue',
+    'Roboto',
+    sans-serif
+  );
+  font-size: var(--app-font-size, 16px);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 // =============================================================================
+// Global Ionic Component Background Fix
+// =============================================================================
+
+ion-app,
+ion-page,
+ion-content {
+  --background: var(--ion-background-color);
+  background: var(--ion-background-color);
+}
+
+ion-header ion-toolbar {
+  --background: var(--ion-toolbar-background, var(--ion-background-color));
+  --color: var(--ion-toolbar-color, var(--ion-text-color));
+}
+
+ion-card {
+  --background: var(--ion-card-background, var(--ion-background-color));
+  --color: var(--ion-text-color);
+}
+
+ion-list {
+  --ion-item-background: var(--ion-background-color);
+  background: var(--ion-background-color);
+}
+
+ion-item {
+  --background: var(--ion-item-background, var(--ion-background-color));
+  --color: var(--ion-text-color);
+}
+
+ion-menu {
+  --background: var(--ion-background-color);
+}
+
+// =============================================================================
 // Typography - Using Ionic Variables
 // =============================================================================
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--ion-text-color);
   font-weight: 600;
   line-height: 1.2;
@@ -235,7 +336,9 @@ textarea {
   color: var(--ion-text-color);
   font-family: inherit;
   font-size: 1rem;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 
   &:focus {
     outline: none;
@@ -314,28 +417,52 @@ textarea {
 .border {
   border: 1px solid var(--ion-color-step-200);
 
-  &-top { border-top: 1px solid var(--ion-color-step-200); }
-  &-right { border-right: 1px solid var(--ion-color-step-200); }
-  &-bottom { border-bottom: 1px solid var(--ion-color-step-200); }
-  &-left { border-left: 1px solid var(--ion-color-step-200); }
+  &-top {
+    border-top: 1px solid var(--ion-color-step-200);
+  }
+  &-right {
+    border-right: 1px solid var(--ion-color-step-200);
+  }
+  &-bottom {
+    border-bottom: 1px solid var(--ion-color-step-200);
+  }
+  &-left {
+    border-left: 1px solid var(--ion-color-step-200);
+  }
 }
 
 // Rounded corners
 .rounded {
   border-radius: 0.375rem;
 
-  &-sm { border-radius: 0.25rem; }
-  &-lg { border-radius: 0.5rem; }
-  &-full { border-radius: 9999px; }
+  &-sm {
+    border-radius: 0.25rem;
+  }
+  &-lg {
+    border-radius: 0.5rem;
+  }
+  &-full {
+    border-radius: 9999px;
+  }
 }
 
 // Shadows
 .shadow {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
-  &-sm { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }
-  &-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
-  &-elevated { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
+  &-sm {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  &-lg {
+    box-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  &-elevated {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
 }
 
 // =============================================================================
@@ -353,17 +480,45 @@ $spacing-scale: (
 );
 
 @each $name, $size in $spacing-scale {
-  .p-#{$name} { padding: $size !important; }
-  .pt-#{$name}, .py-#{$name} { padding-top: $size !important; }
-  .pr-#{$name}, .px-#{$name} { padding-right: $size !important; }
-  .pb-#{$name}, .py-#{$name} { padding-bottom: $size !important; }
-  .pl-#{$name}, .px-#{$name} { padding-left: $size !important; }
+  .p-#{$name} {
+    padding: $size !important;
+  }
+  .pt-#{$name},
+  .py-#{$name} {
+    padding-top: $size !important;
+  }
+  .pr-#{$name},
+  .px-#{$name} {
+    padding-right: $size !important;
+  }
+  .pb-#{$name},
+  .py-#{$name} {
+    padding-bottom: $size !important;
+  }
+  .pl-#{$name},
+  .px-#{$name} {
+    padding-left: $size !important;
+  }
 
-  .m-#{$name} { margin: $size !important; }
-  .mt-#{$name}, .my-#{$name} { margin-top: $size !important; }
-  .mr-#{$name}, .mx-#{$name} { margin-right: $size !important; }
-  .mb-#{$name}, .my-#{$name} { margin-bottom: $size !important; }
-  .ml-#{$name}, .mx-#{$name} { margin-left: $size !important; }
+  .m-#{$name} {
+    margin: $size !important;
+  }
+  .mt-#{$name},
+  .my-#{$name} {
+    margin-top: $size !important;
+  }
+  .mr-#{$name},
+  .mx-#{$name} {
+    margin-right: $size !important;
+  }
+  .mb-#{$name},
+  .my-#{$name} {
+    margin-bottom: $size !important;
+  }
+  .ml-#{$name},
+  .mx-#{$name} {
+    margin-left: $size !important;
+  }
 }
 
 // =============================================================================
@@ -373,34 +528,72 @@ $spacing-scale: (
 .flex {
   display: flex;
 
-  &-col { flex-direction: column; }
-  &-row { flex-direction: row; }
-  &-wrap { flex-wrap: wrap; }
+  &-col {
+    flex-direction: column;
+  }
+  &-row {
+    flex-direction: row;
+  }
+  &-wrap {
+    flex-wrap: wrap;
+  }
 
-  &-1 { flex: 1 1 0%; }
-  &-auto { flex: 1 1 auto; }
-  &-initial { flex: 0 1 auto; }
-  &-none { flex: none; }
+  &-1 {
+    flex: 1 1 0%;
+  }
+  &-auto {
+    flex: 1 1 auto;
+  }
+  &-initial {
+    flex: 0 1 auto;
+  }
+  &-none {
+    flex: none;
+  }
 
   &-center {
     align-items: center;
     justify-content: center;
   }
 
-  &-between { justify-content: space-between; }
-  &-around { justify-content: space-around; }
-  &-evenly { justify-content: space-evenly; }
+  &-between {
+    justify-content: space-between;
+  }
+  &-around {
+    justify-content: space-around;
+  }
+  &-evenly {
+    justify-content: space-evenly;
+  }
 
-  &-items-center { align-items: center; }
-  &-items-start { align-items: flex-start; }
-  &-items-end { align-items: flex-end; }
-  &-items-baseline { align-items: baseline; }
-  &-items-stretch { align-items: stretch; }
+  &-items-center {
+    align-items: center;
+  }
+  &-items-start {
+    align-items: flex-start;
+  }
+  &-items-end {
+    align-items: flex-end;
+  }
+  &-items-baseline {
+    align-items: baseline;
+  }
+  &-items-stretch {
+    align-items: stretch;
+  }
 
-  &-justify-center { justify-content: center; }
-  &-justify-start { justify-content: flex-start; }
-  &-justify-end { justify-content: flex-end; }
-  &-justify-between { justify-content: space-between; }
+  &-justify-center {
+    justify-content: center;
+  }
+  &-justify-start {
+    justify-content: flex-start;
+  }
+  &-justify-end {
+    justify-content: flex-end;
+  }
+  &-justify-between {
+    justify-content: space-between;
+  }
 }
 
 // =============================================================================
@@ -410,10 +603,18 @@ $spacing-scale: (
 .grid {
   display: grid;
 
-  &-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-  &-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  &-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  &-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  &-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  &-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  &-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  &-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 
   @media (max-width: 768px) {
     &-cols-2,
@@ -442,18 +643,31 @@ $spacing-scale: (
 // Status Colors - Using Ionic Variables
 // =============================================================================
 
-.success { color: var(--ion-color-success); }
-.warning { color: var(--ion-color-warning); }
-.error, .danger { color: var(--ion-color-danger); }
-.info { color: var(--ion-color-tertiary); }
+.success {
+  color: var(--ion-color-success);
+}
+.warning {
+  color: var(--ion-color-warning);
+}
+.error,
+.danger {
+  color: var(--ion-color-danger);
+}
+.info {
+  color: var(--ion-color-tertiary);
+}
 
 // =============================================================================
 // Animations
 // =============================================================================
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .fade-in {

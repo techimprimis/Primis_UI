@@ -8,10 +8,10 @@ ion-split-pane {
 // Sidebar Menu
 ion-menu {
   --width: 260px;
-  --background: #ffffff;
+  --background: var(--ion-background-color);
 
   ion-header ion-toolbar {
-    --background: #ffffff;
+    --background: var(--ion-background-color);
   }
 
   ion-title {
@@ -20,10 +20,10 @@ ion-menu {
 
   // Navigation list
   ion-content {
-    --background: #ffffff;
+    --background: var(--ion-background-color);
 
     ion-list {
-      background: #ffffff;
+      background: var(--ion-background-color);
       padding: 8px;
 
       ion-item {
@@ -60,7 +60,7 @@ ion-menu {
         }
 
         &:hover:not(.selected) {
-          --background: #f4f4f4;
+          --background: var(--ion-color-step-100);
         }
       }
     }
@@ -69,12 +69,12 @@ ion-menu {
   // Sidebar footer with logout
   ion-footer {
     ion-toolbar {
-      --background: #ffffff;
+      --background: var(--ion-background-color);
       --padding-start: 8px;
       --padding-end: 8px;
       --padding-top: 8px;
       --padding-bottom: 8px;
-      border-top: 1px solid #e0e0e0;
+      border-top: 1px solid var(--ion-color-step-200);
     }
 
     .logout-item {
@@ -94,33 +94,6 @@ ion-menu {
         --background: rgba(var(--ion-color-danger-rgb), 0.1);
       }
     }
-  }
-}
-
-// Dark mode overrides for sidebar
-:host-context(.ion-palette-dark) ion-menu,
-html.ion-palette-dark ion-menu {
-  --background: #1e1e1e;
-
-  ion-header ion-toolbar {
-    --background: #1e1e1e;
-  }
-
-  ion-content {
-    --background: #1e1e1e;
-
-    ion-list {
-      background: #1e1e1e;
-
-      ion-item:hover:not(.selected) {
-        --background: #2d2d2d;
-      }
-    }
-  }
-
-  ion-footer ion-toolbar {
-    --background: #1e1e1e;
-    border-top-color: #3d3d3d;
   }
 }
 
@@ -232,20 +205,39 @@ html.ion-palette-dark ion-menu {
   margin-bottom: 12px;
 }
 
+// Activity Card
+.activity-card {
+  margin: 0 0 24px;
+
+  ion-card-header {
+    padding-bottom: 0;
+  }
+
+  ion-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  ion-card-content {
+    padding: 8px 0 0;
+  }
+}
+
 // Activity List
 .activity-list {
-  background: var(--ion-card-background);
-  border-radius: 8px;
-  margin-bottom: 24px;
+  background: transparent;
+  padding: 0;
 
   ion-item {
     --padding-start: 16px;
     --padding-end: 16px;
     --padding-top: 12px;
     --padding-bottom: 12px;
+    --background: transparent;
 
     ion-icon {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
+      margin-right: 16px;
     }
 
     h3 {

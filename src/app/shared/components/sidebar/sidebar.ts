@@ -11,7 +11,6 @@ import {
   IonIcon,
   IonLabel,
   IonMenuToggle,
-  IonFooter,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { settingsOutline, logOutOutline } from 'ionicons/icons';
@@ -37,7 +36,6 @@ export interface NavItem {
     IonIcon,
     IonLabel,
     IonMenuToggle,
-    IonFooter,
   ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',

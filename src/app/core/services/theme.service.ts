@@ -18,16 +18,29 @@ export class ThemeService {
   }
 
   private initializeTheme(): void {
-    const savedTheme = localStorage.getItem(this.THEME_KEY) as Theme | null;
+    const savedTheme = localStorage.getItem(this.THEME_KEY);
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    const initialTheme = savedTheme || (prefersDark ? this.DARK_THEME : this.LIGHT_THEME);
-    this.setTheme(initialTheme);
+    let initialTheme: Theme;
 
-    // Listen for system theme changes (only if no explicit preference is set)
-    if (!savedTheme) {
+    if (savedTheme === 'dark') {
+      initialTheme = this.DARK_THEME;
+    } else if (savedTheme === 'light') {
+      initialTheme = this.LIGHT_THEME;
+    } else {
+      // 'system' or no preference - use system preference
+      initialTheme = prefersDark ? this.DARK_THEME : this.LIGHT_THEME;
+    }
+
+    this.setTheme(initialTheme, false);
+
+    // Listen for system theme changes (only if preference is 'system' or not set)
+    if (!savedTheme || savedTheme === 'system') {
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        this.setTheme(e.matches ? this.DARK_THEME : this.LIGHT_THEME, false);
+        const currentPref = localStorage.getItem(this.THEME_KEY);
+        if (!currentPref || currentPref === 'system') {
+          this.setTheme(e.matches ? this.DARK_THEME : this.LIGHT_THEME, false);
+        }
       });
     }
   }
@@ -44,16 +57,19 @@ export class ThemeService {
 
   setTheme(theme: Theme, savePreference: boolean = true): void {
     const html = this.document.documentElement;
+    const body = this.document.body;
     const themeColorMeta = this.document.querySelector('meta[name="theme-color"]');
 
     // Toggle the Ionic dark palette class on the html element
     if (theme === this.DARK_THEME) {
       html.classList.add(this.DARK_CLASS);
+      body.classList.add(this.DARK_CLASS);
       if (themeColorMeta) {
         themeColorMeta.setAttribute('content', '#121212');
       }
     } else {
       html.classList.remove(this.DARK_CLASS);
+      body.classList.remove(this.DARK_CLASS);
       if (themeColorMeta) {
         themeColorMeta.setAttribute('content', '#ffffff');
       }

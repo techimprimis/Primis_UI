@@ -22,6 +22,7 @@ import {
   documentTextOutline,
   walletOutline,
   personOutline,
+  notificationsOutline,
 } from 'ionicons/icons';
 
 @Component({
@@ -61,6 +62,7 @@ export class DashboardComponent {
       documentTextOutline,
       walletOutline,
       personOutline,
+      notificationsOutline,
     });
   }
 

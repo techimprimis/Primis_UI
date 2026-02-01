@@ -3,7 +3,7 @@ ion-content {
 }
 
 ion-list {
-  background: transparent;
+  background: var(--ion-background-color);
   padding: 8px 0;
 }
 
@@ -38,7 +38,7 @@ ion-item {
 .text-preview {
   padding: 24px 16px;
   margin: 16px;
-  background: var(--ion-color-light);
+  background: var(--ion-color-step-100);
   border-radius: 12px;
   text-align: center;
 

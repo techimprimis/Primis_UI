@@ -11,9 +11,6 @@ import {
   IonLabel,
   IonButtons,
   IonBackButton,
-  IonRadioGroup,
-  IonRadio,
-  IonRange,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
@@ -24,7 +21,7 @@ import {
 } from 'ionicons/icons';
 import { ThemeService } from '../../core/services/theme.service';
 
-type MenuView = 'main' | 'appearance' | 'text-size';
+type PreferencesView = 'main' | 'appearance' | 'text-size';
 
 interface ThemeOption {
   value: 'light' | 'dark' | 'system';
@@ -37,7 +34,7 @@ interface TextSizeOption {
 }
 
 @Component({
-  selector: 'app-menu',
+  selector: 'app-preferences',
   standalone: true,
   imports: [
     CommonModule,
@@ -51,18 +48,15 @@ interface TextSizeOption {
     IonLabel,
     IonButtons,
     IonBackButton,
-    IonRadioGroup,
-    IonRadio,
-    IonRange,
   ],
-  templateUrl: './menu.html',
-  styleUrl: './menu.scss',
+  templateUrl: './preferences.html',
+  styleUrl: './preferences.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MenuComponent implements OnInit {
+export class PreferencesComponent implements OnInit {
   private themeService = inject(ThemeService);
 
-  currentView = signal<MenuView>('main');
+  currentView = signal<PreferencesView>('main');
 
   // Appearance options
   selectedTheme = signal<'light' | 'dark' | 'system'>('system');
@@ -112,7 +106,7 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  navigateTo(view: MenuView): void {
+  navigateTo(view: PreferencesView): void {
     this.currentView.set(view);
   }
 
@@ -132,15 +126,14 @@ export class MenuComponent implements OnInit {
 
   private applyTheme(theme: 'light' | 'dark' | 'system'): void {
     if (theme === 'system') {
-      // Remove saved preference and let system decide
-      localStorage.removeItem('theme-preference');
+      // Let system decide
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       this.themeService.setTheme(prefersDark ? 'dark' : 'light', false);
     } else {
-      this.themeService.setTheme(theme, true);
+      this.themeService.setTheme(theme, false);
     }
 
-    // Save the user's choice (system, light, or dark)
+    // Save the user's choice (system, light, or dark) - we handle storage ourselves
     localStorage.setItem('theme-preference', theme);
   }
 

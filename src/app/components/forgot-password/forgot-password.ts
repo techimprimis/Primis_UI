@@ -2,6 +2,11 @@ import { ChangeDetectionStrategy, Component, output, signal } from '@angular/cor
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   IonContent,
+  IonHeader,
+  IonToolbar,
+  IonButtons,
+  IonBackButton,
+  IonTitle,
   IonCard,
   IonCardContent,
   IonInput,
@@ -12,7 +17,7 @@ import {
 } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { arrowBackOutline, mailOutline, checkmarkCircleOutline } from 'ionicons/icons';
+import { mailOutline, checkmarkCircleOutline, arrowBackOutline } from 'ionicons/icons';
 
 export interface ForgotPasswordRequest {
   email: string;
@@ -24,6 +29,11 @@ export interface ForgotPasswordRequest {
     ReactiveFormsModule,
     RouterLink,
     IonContent,
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonBackButton,
+    IonTitle,
     IonCard,
     IonCardContent,
     IonInput,

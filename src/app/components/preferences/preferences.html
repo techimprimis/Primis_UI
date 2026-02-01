@@ -2,7 +2,10 @@
   @case ('main') {
     <ion-header>
       <ion-toolbar>
-        <ion-title>Settings</ion-title>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/dashboard"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Preferences</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -31,7 +34,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button defaultHref="/settings" (click)="goBack(); $event.preventDefault()"></ion-back-button>
+          <ion-back-button defaultHref="/preferences" (click)="goBack(); $event.preventDefault()"></ion-back-button>
         </ion-buttons>
         <ion-title>Appearance</ion-title>
       </ion-toolbar>
@@ -55,7 +58,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button defaultHref="/settings" (click)="goBack(); $event.preventDefault()"></ion-back-button>
+          <ion-back-button defaultHref="/preferences" (click)="goBack(); $event.preventDefault()"></ion-back-button>
         </ion-buttons>
         <ion-title>Text Size</ion-title>
       </ion-toolbar>

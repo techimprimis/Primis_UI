@@ -13,11 +13,30 @@
     (function() {
       const savedTheme = localStorage.getItem('theme-preference');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+
+      // Determine if dark mode should be applied
+      let isDark = false;
+      if (savedTheme === 'dark') {
+        isDark = true;
+      } else if (savedTheme === 'light') {
+        isDark = false;
+      } else {
+        // 'system' or no preference - use system preference
+        isDark = prefersDark;
+      }
 
       if (isDark) {
         document.documentElement.classList.add('ion-palette-dark');
         document.getElementById('theme-color').setAttribute('content', '#121212');
+      } else {
+        document.documentElement.classList.remove('ion-palette-dark');
+        document.getElementById('theme-color').setAttribute('content', '#ffffff');
+      }
+
+      // Apply saved text size preference
+      const savedTextSize = localStorage.getItem('text-size-preference');
+      if (savedTextSize) {
+        document.documentElement.style.setProperty('--app-font-size', savedTextSize + 'px');
       }
     })();
   </script>

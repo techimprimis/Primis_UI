@@ -65,39 +65,43 @@
 
         <!-- Recent Activity Section -->
         <div class="section-title">Recent Activity</div>
-        <ion-list lines="inset" class="activity-list">
-          <ion-item>
-            <ion-icon name="person-outline" slot="start" color="primary"></ion-icon>
-            <ion-label>
-              <h3>New user registration</h3>
-              <p>John Doe signed up for an account</p>
-            </ion-label>
-            <ion-note slot="end">2 min ago</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="wallet-outline" slot="start" color="success"></ion-icon>
-            <ion-label>
-              <h3>Payment received</h3>
-              <p>$1,234.00 from Premium subscription</p>
-            </ion-label>
-            <ion-note slot="end">15 min ago</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="document-text-outline" slot="start" color="warning"></ion-icon>
-            <ion-label>
-              <h3>New order placed</h3>
-              <p>Order #12345 is pending review</p>
-            </ion-label>
-            <ion-note slot="end">1 hour ago</ion-note>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-icon name="notifications-outline" slot="start" color="medium"></ion-icon>
-            <ion-label>
-              <h3>System update</h3>
-              <p>Version 2.5.0 deployed successfully</p>
-            </ion-label>
-            <ion-note slot="end">3 hours ago</ion-note>
-          </ion-item>
-        </ion-list>
+        <ion-card class="activity-card">
+          <ion-card-content>
+            <ion-list lines="inset" class="activity-list">
+              <ion-item>
+                <ion-icon name="person-outline" slot="start" color="primary"></ion-icon>
+                <ion-label>
+                  <h3>New user registration</h3>
+                  <p>John Doe signed up for an account</p>
+                </ion-label>
+                <ion-note slot="end">2 min ago</ion-note>
+              </ion-item>
+              <ion-item>
+                <ion-icon name="wallet-outline" slot="start" color="success"></ion-icon>
+                <ion-label>
+                  <h3>Payment received</h3>
+                  <p>$1,234.00 from Premium subscription</p>
+                </ion-label>
+                <ion-note slot="end">15 min ago</ion-note>
+              </ion-item>
+              <ion-item>
+                <ion-icon name="document-text-outline" slot="start" color="warning"></ion-icon>
+                <ion-label>
+                  <h3>New order placed</h3>
+                  <p>Order #12345 is pending review</p>
+                </ion-label>
+                <ion-note slot="end">1 hour ago</ion-note>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-icon name="notifications-outline" slot="start" color="medium"></ion-icon>
+                <ion-label>
+                  <h3>System update</h3>
+                  <p>Version 2.5.0 deployed successfully</p>
+                </ion-label>
+                <ion-note slot="end">3 hours ago</ion-note>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
       </div>
     </ion-content>

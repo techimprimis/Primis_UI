@@ -4,7 +4,6 @@ import {
   IonCardContent,
   IonItem,
   IonLabel,
-  IonToggle,
   IonRadioGroup,
   IonRadio,
 } from '@ionic/angular/standalone';
@@ -17,7 +16,6 @@ import {
     IonCardContent,
     IonItem,
     IonLabel,
-    IonToggle,
     IonRadioGroup,
     IonRadio,
   ],
